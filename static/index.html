@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>./root</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="bg-glow">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+        </div>
+
+        <aside class="sidebar">
+            <div class="logo">
+                <span>./root</span>
+            </div>
+            <nav>
+                <button class="nav-item active" data-tab="home"><i data-lucide="home"></i> <span>Home</span></button>
+                <button class="nav-item" data-tab="timeline"><i data-lucide="clock"></i> <span>Log
+                        Timeline</span></button>
+                <button class="nav-item" data-tab="files"><i data-lucide="folder-open"></i> <span>Files</span></button>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <div>
+                    <h1 id="page-title">FAT32 filesystem analysis</h1>
+                </div>
+            </header>
+
+            <div class="tab-view active" id="tab-home">
+                <div class="grid-layout">
+                    <div class="card upload-card">
+                        <div class="card-header">
+                            <i data-lucide="upload-cloud"></i>
+                            <h3>Upload Disk Image</h3>
+                        </div>
+                        <div class="drop-zone" id="drop-zone">
+                            <input type="file" id="file-input" hidden>
+                            <div class="drop-content">
+                                <i data-lucide="file-up" class="float-icon"></i>
+                                <p>Select the .E01 file</p>
+                            </div>
+                        </div>
+                        <br>
+                        <div id="file-info" class="file-info hidden">
+                            <i data-lucide="file-check"></i>
+                            <span id="selected-filename">filename.img</span>
+                            <button id="remove-file"><i data-lucide="x"></i></button>
+                        </div>
+                        <button class="btn btn-primary btn-large" id="btn-run" disabled>
+                            <span>Start</span>
+                            <i data-lucide="play"></i>
+                        </button>
+                    </div>
+
+                    <div class="card progress-card hidden" id="progress-card">
+                        <div class="card-header">
+                            <div class="spinner"></div>
+                            <h3>Processing</h3>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progress-fill"></div>
+                            </div>
+                            <div class="progress-stats">
+                                <span id="progress-status">Initializing...</span>
+                                <span id="progress-percent">0%</span>
+                            </div>
+                        </div>
+                        <div class="process-log" id="process-log"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-view" id="tab-timeline">
+                <div class="card full-width">
+                    <div class="card-header border">
+                        <div class="header-left">
+                            <i data-lucide="list"></i>
+                            <h3>System Event Log</h3>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table id="timeline-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 200px">Timestamp</th>
+                                    <th>File Object</th>
+                                    <th>Event Description</th>
+                                </tr>
+                            </thead>
+                            <tbody id="timeline-body">
+                                <tr>
+                                    <td colspan="3" class="empty-state">No logs available.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-view" id="tab-files">
+                <div class="card full-width">
+                    <div class="card-header border">
+                        <div class="header-left"><i data-lucide="folder"></i>
+                            <h3>File Explorer</h3>
+                        </div>
+                    </div>
+
+                    <div class="file-section">
+                        <h4 class="section-title text-danger">
+                            Recovered / Deleted Files
+                        </h4>
+                        <div class="file-grid" id="recovered-file-grid">
+                            <div class="empty-state">No deleted files found.</div>
+                        </div>
+                    </div>
+
+                    <div class="section-divider"></div>
+
+                    <div class="file-section">
+                        <h4 class="section-title text-success">
+                            Existing System Files
+                        </h4>
+                        <div class="file-grid" id="existing-file-grid">
+                            <div class="empty-state">No existing files found.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>
